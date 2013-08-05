@@ -10,7 +10,7 @@ public class Tray{
         
     }
 
-    public int hshCode(){
+    public int hashCode(){
         
     }
     public tring toString()
