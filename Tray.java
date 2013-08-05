@@ -1,5 +1,11 @@
+import java.util*;
+
 public class Tray{
-    	ArrayList row = new ArrayList();
-	ArrayList column = new ArrayList();
+    public int[][] board = new int[][]
+    
+
+    public Tray(size, column, row) {
+        
+    }
 
 }
