@@ -13,5 +13,10 @@ public class Tray{
     public int hashCode(){
         
     }
-    public tring toString()
+    public String toString(){
+        
+    }
+    public boolean equals(Tray tray1) {
+        
+    }
 }
