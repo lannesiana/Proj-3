@@ -1,4 +1,5 @@
 public class Tray{
-    public int[][] board = new int[][]
+    ArrayList row = new ArrayList();
+	ArrayList column = new ArrayList();
 
 }
