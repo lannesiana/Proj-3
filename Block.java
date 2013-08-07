@@ -34,15 +34,15 @@ public class Block{
     public void move(String direction){ //gotta check if possible to move, a "canMove" method?
         if (!directions.contains(direction))
             throw new Exception("not a direction");
-        if (direction.equals("up"){ //must check if okay to move in this direction first. in tray
+        if (direction.equals("up")){ //must check if okay to move in this direction first. in tray
                 this.upLeftRow += 1;
                 this.botRightRow += 1;
         }
-        else if (direction.equals("down"){
+        else if (direction.equals("down")){
                 this.upLeftRow -= 1;
                 this.botRightRow -= 1;
         }
-        else if (direction.equals("left"){
+        else if (direction.equals("left")){
                 this.upLeftColumn -= 1;
                 this.botRightColumn -= 1;
         }
