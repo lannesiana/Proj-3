@@ -31,32 +31,24 @@ public class Block{
     }
     
     //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
-    public void move(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
+    public void move(String direction){ //gotta check if possible to move, a "canMove" method?
         if (!directions.contains(direction))
-            throw new (Exception e{});
-        if (direction.equals("up"){
-            if (Tray.canMoveUp(this)){
+            throw new Exception("not a direction");
+        if (direction.equals("up"){ //must check if okay to move in this direction first. in tray
                 this.upLeftRow += 1;
                 this.botRightRow += 1;
-            }
         }
         else if (direction.equals("down"){
-            if (Tray.canMoveDown(this)){
                 this.upLeftRow -= 1;
                 this.botRightRow -= 1;
-            }
         }
         else if (direction.equals("left"){
-            if (Tray.canMoveLeft(this)){
                 this.upLeftColumn -= 1;
                 this.botRightColumn -= 1;
-            }
         }
         else if (direction.equals("right")){
-            if (Tray.canMoveRight(this)){
                 this.upLeftColumn += 1;
                 this.botRightColumn += 1;
-            }
         }
     }
 
