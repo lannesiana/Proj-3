@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 
 public class TrayTest extends TestCase {
-  
+	
 	public void testCanMoveDirection(){
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		Block b1 = new Block(0, 0, 1, 1);
@@ -15,9 +15,9 @@ public class TrayTest extends TestCase {
 		Block b2 = new Block(0,3,1,3);
 		blocks.add(b2);
 		Block b3 = new Block(3,1, 3, 1);
-		blocks.add(b3)
+		blocks.add(b3);
 		Block b4 = new Block(4,3,4,3);
-		blocks.add(b4)
+		blocks.add(b4);
 		Tray t1 = new Tray(5, 4, blocks, null);
 		/* gives us tray of
 		1 1 2 0
