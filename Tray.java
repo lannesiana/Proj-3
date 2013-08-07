@@ -1,28 +1,43 @@
-import java.util*;
+import java.util.ArrayList;
 
-//make a board 
+
+
+
 
 public class Tray{
+    final private int rowsTotal;
+	final private int colsTotal;
+	final private ArrayList<Block> blocks;
+	final private int hash;
     public int[][] board;
-    int numRows;
-    int numColumns;
-    ArrayList<Block> blocks = new ArrayList<Block>();
     
 
-    public Tray(columns, rows) {
+    public Tray(int rows, int columns, ArrayList<Block> blocks,
+			ArrayList<Move> routeHistory) {
+    	this.rowsTotal = rows;
+    	this.colsTotal = columns;
+    	this.blocks = blocks;
+    	hash = calculateDaHashCode(); 
+  
         board = new int[rows][columns];
-        numRows = rows;
-        numColumns = columns;                    
+        
+        
+        
+    }
+    private int calculateDaHashCode(){
+    	
     }
 
     public int hashCode(){
+    	return hash; 
         
     }
     public String toString(){
         
         
     }
-    public boolean equals(Tray tray1) {
+    public boolean equals(Object obj) {
+    	//bunches of if statements
         
     }
 }
