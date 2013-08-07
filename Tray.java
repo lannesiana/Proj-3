@@ -1,81 +1,119 @@
-Public class Block{
-    private int upLeftRow;
-    private int upLeftColumn;
-    private int botRightRow;
-    private int botRightColumn;
-    private final String[] directions = new String["up", "down", "left", "right"];
+import java.util.ArrayList;
+
+public class Tray{
+    final private int rowsTotal;
+	final private int colsTotal;
+	final private ArrayList<Block> blocks;
+	final private int hash;
+    final private int[][] board;
     
-    public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn){
-        this.upLeftRow = upLeftRow;
-        this.upLeftColumn = upLeftColumn;
-        this.botRightRow = botRightRow;
-        this.botRightColumn = botRightColumn;
+
+    public Tray(int rows, int columns, ArrayList<Block> blocks,
+			ArrayList<Move> routeHistory) {
+    	this.rowsTotal = rows;
+    	this.colsTotal = columns;
+    	this.blocks = blocks;
+    	hash = calculateDaHashCode(); 
+        board = new int[rows][columns];
+        fillBoard();   
+    }
+
+    //for a simpler layout. In the tray, a block will be represented by its index in the arraylist.
+    //a filled board may look like:
+    //1 1 0 2
+    //1 1 0 2
+    //3 3 3 0
+    //groups of similar numbers represent one block, and 0s represent empty spaces
+    private void fillBoard(){
+        for (int i = 0; i < this.blocks.size(); i++){
+            Block block = blocks.get(i);
+            for (int r = block.getULR(); r <= block.getBRR(); r++){
+                for (int c = block.getULC(); c <= block.getBRC(); c++){
+                    if (r >= rowsTotal || c >= colsTotal){
+                        throw new RuntimeException("rows/columns are out of bounds");
+                    }
+                    if (board[r][c] != 0){
+                        throw new RuntimeException("2 blocks overlap");
+                    }
+                    board[r][c] = i;
+                }
+            }
+        }
+    }
+    private int calculateDaHashCode(){
+    	int prime = 47;
+    	int result = 1;
+    	for (int r = 0; r < rowsTotal; r++) {
+			for (int c = 0; c < colsTotal; c++) {
+				result = prime * result + board[r][c];
+			}
+    }
+    	return result; 
+    }
+
+    public int hashCode(){
+    	return hash; 
         
-        // do we want to put blocks into a hash? need hash code?
     }
-
-    public int getULR(){
-        return this.upLeftRow;
-    }
-
-    public int getULC(){
-        return this.upLeftCorner;
-    }
-
-    public int getBRR(){
-        return this.bottomRightRow;
-    }
-
-    public int getBRC(){
-        return this.bottomRightColumn;
-    }
-    
-    //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
-    public void move(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
-        if (!directions.contains(direction))
-          throw (new Exception e{});
-        if (direction.equals("up"){
-            if (Tray.canMoveUP(this)){
-                this.upLeftRow += 1;
-                this.botRightRow += 1;
-            }
-        }
-        else if (direction.equals("down"){
-            if (Tray.canMoveDown(this)){
-                this.upLeftRow -= 1;
-                this.botRightRow -= 1;
-            }
-        }
-        else if (direction.equals("left"){
-            if (Tray.canMoveLeft(this)){
-                this.upLeftColumn -= 1;
-                this.botRightColumn -= 1;
-            }
-        }
-        else if (direction.equals("right")){
-            if (Tray.canMoveRight(this)){
-                this.upLeftColumn += 1;
-                this.botRightColumn += 1;
-            }
-        }
-    }
-
-    //overrides Object.equals();
-    public boolean equals(Object obj){
-
-    }
-
-    //sorts blocks by rows then columns
-    public boolean compareTo(Block b){
-
-    }
-
     public String toString(){
-        return "Block[" + upLefRow + " " + upLeftColumn + " " botRightRow + " " botRightColumn + "]";
+        
+        
+    }
+    public boolean equals(Object obj) {
+    	//bunches of if statements
+        
     }
 
-    public String blockDimensions(){
-        return (botRightRow - upLeftRow + 1) + "x" + (botRightColumn - upLeftColumn + 1);
+
+    public boolean canMoveUp(Block block){
+        if (block.getULR() > 0){
+            for (int i = block.getULC(); i <= block.getBRC(); i++){
+                if (!(board[block.getULR() - 1][i] == 0))
+                    return false;
+            }
+            return true; 
+        }
+        return false;
     }
+
+
+
+    public boolean canMoveDown(Block block){
+        if (block.getBRR() < this.rowsTotal-1){
+            for (int i = block.getULC(); i <= block.getBRC(); i++){
+                if (!(board[block.getBRR() + 1][i] == 0))
+                    return false;
+            } 
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public boolean canMoveRight(Block block){
+        if (block.getBRC() < this.colsTotal-1){
+            for (int i = block.getULR(); i <= block.getBRR(); i++){
+                if (!(board[i][block.getBRC() + 1] == 0))
+                    return false;
+            } 
+            return true;
+        }
+        return false;
+    }
+
+
+
+    public boolean canMoveLeft(Block block){
+        if (block.getULC() > 0){
+            for (int i = block.getULR(); i <= block.getBRR(); i++){
+                if (!(board[i][block.getULC() - 1] == 0))
+                    return false;
+            } 
+            return true;
+        }
+        return false;
+    }
+
 
 }
