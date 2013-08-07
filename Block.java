@@ -1,9 +1,9 @@
-Public class Block{
+public class Block{
     private int upLeftRow;
     private int upLeftColumn;
     private int botRightRow;
     private int botRightColumn;
-    private final String[] directions = new String["up", "down", "left", "right"];
+    private final String[] directions = {"up", "down", "left", "right"};
     
     public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn){
         this.upLeftRow = upLeftRow;
@@ -19,23 +19,23 @@ Public class Block{
     }
 
     public int getULC(){
-        return this.upLeftCorner;
+        return this.upLeftColumn;
     }
 
     public int getBRR(){
-        return this.bottomRightRow;
+        return this.botRightRow;
     }
 
     public int getBRC(){
-        return this.bottomRightColumn;
+        return this.botRightColumn;
     }
     
     //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
     public void move(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
         if (!directions.contains(direction))
-          throw (new Exception e{});
+            throw new (Exception e{});
         if (direction.equals("up"){
-            if (Tray.canMoveUP(this)){
+            if (Tray.canMoveUp(this)){
                 this.upLeftRow += 1;
                 this.botRightRow += 1;
             }
@@ -58,6 +58,24 @@ Public class Block{
                 this.botRightColumn += 1;
             }
         }
+    }
+
+    //overrides Object.equals();
+    public boolean equals(Object obj){
+
+    }
+
+    //sorts blocks by rows then columns
+    public boolean compareTo(Block b){
+
+    }
+
+    public String toString(){
+        return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
+    }
+
+    public String blockDimensions(){
+        return (botRightRow - upLeftRow + 1) + "x" + (botRightColumn - upLeftColumn + 1);
     }
 
 }
