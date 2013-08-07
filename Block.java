@@ -13,34 +13,51 @@ Public class Block{
         
         // do we want to put blocks into a hash? need hash code?
     }
-    //also consider, "|| if space next to block is empty"
-    public boolean isMoveable(String direction){
-        if (direction.equals("up"){
-            if (this.upLeftRow > 0)
-                return true;
-        }
-        if (direction.equals("down"){
-            if (this.botRightRow < ) //< numRows in tray. maybe this should be in tray to actually access layout. but then would need get Methods for all these instance varaibles ewwwwww.
-                return true;
-        }
-        
-        if (direction.equals("left"){
-            if (this.upLeftColumn > 0) 
-                return true;
-        }
-        if (direction.equals("right"){
-            if (this.botRightColumn < ) //< numColumns in tray
-                return true;
-        }
-        return false;
+
+    public int getULR(){
+        return this.upLeftRow;
+    }
+
+    public int getULC(){
+        return this.upLeftCorner;
+    }
+
+    public int getBRR(){
+        return this.bottomRightRow;
+    }
+
+    public int getBRC(){
+        return this.bottomRightColumn;
     }
     
-    public void moveBlock(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
+    //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
+    public void move(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
         if (!directions.contains(direction))
           throw (new Exception e{});
-        if direction.equals("up"){
-
-            this.upLeftRow
+        if (direction.equals("up"){
+            if (Tray.canMoveUP(this)){
+                this.upLeftRow += 1;
+                this.botRightRow += 1;
+            }
         }
-      
+        else if (direction.equals("down"){
+            if (Tray.canMoveDown(this)){
+                this.upLeftRow -= 1;
+                this.botRightRow -= 1;
+            }
+        }
+        else if (direction.equals("left"){
+            if (Tray.canMoveLeft(this)){
+                this.upLeftColumn -= 1;
+                this.botRightColumn -= 1;
+            }
+        }
+        else if (direction.equals("right")){
+            if (Tray.canMoveRight(this)){
+                this.upLeftColumn += 1;
+                this.botRightColumn += 1;
+            }
+        }
     }
+
+}
