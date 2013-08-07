@@ -27,10 +27,10 @@ public class TrayTest extends TestCase {
 		0 0 0 4
 		*/
 		//blocks can move adjacent empty area
-		assertTrue(t1.caMoveUp(b3));
-		assertTrue(t1.canMovDown(b3));
+		assertTrue(t1.canMoveUp(b3));
+		assertTrue(t1.canMoveDown(b3));
 		assertTrue(t1.canMoveRight(b3));
-		assertTrue(t1.canMoveLeft(b3)));
+		assertTrue(t1.canMoveLeft(b3));
 		assertTrue(t1.canMoveDown(b2));
 		assertTrue(t1.canMoveRight(b2));
 		assertTrue(t1.canMoveDown(b1));
