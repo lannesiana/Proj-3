@@ -1,31 +1,34 @@
 
 public class Move {
-  private Block block;
-	public enum direction{
+	private Block block;
+	public enum Direction{
 		up, down, left, right
 	}
-	private direction dir;
+	private Direction dir;
 	
-	public Move(Block block, direction dir) {
+	public Move(Block block, Direction dir) {
 		this.block = block;
 		this.dir = dir;
 	}
 	
-	public direction getDirection(){			
+	public Direction getDirection(){			
 		return dir;
 	}
-	public String toString(){
+	public String cleanToString(){ //returns a string version not according to specs
 		return block + " moves " + dir;
+	}
+
+	public String toString(){ //returns a move according to specs
+
 	}
 	
 	public Block getBlock() {
 		return block;
 	}
-	public getMove() {
+	public Move getMove() {
 		
 		//DO SOMETHING IN TRAY?
 
 	}
 	
-	}
 }
