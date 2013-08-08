@@ -83,13 +83,13 @@ public class Tray{
         for (int i = 0; i < blocks.size(); i++){
             Block block = blocks.get(i);
             if (canMoveUp(block))
-                moves.add(new Move(block, Move.Direction.up));
+                moves.add(new Move(block, Direction.up));
             if (canMoveDown(block))
-                moves.add(new Move(block, Move.Direction.down));
+                moves.add(new Move(block, Direction.down));
             if (canMoveLeft(block))
-                moves.add(new Move(block, Move.Direction.left));
+                moves.add(new Move(block, Direction.left));
             if (canMoveRight(block))
-                moves.add(new Move(block, Move.Direction.right));
+                moves.add(new Move(block, Direction.right));
         }
         return moves;
     }
