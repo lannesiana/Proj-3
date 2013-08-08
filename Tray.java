@@ -145,5 +145,12 @@ public class Tray{
         return false;
     }
 
+    public static isOK(){
+        //overlapping blocks
+        //all block dimensions are nonnegative
+        //blocks are in bounds
+
+    }
+
 
 }
