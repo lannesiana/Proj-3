@@ -76,4 +76,8 @@ public class Block{
         return (botRightRow - upLeftRow + 1) + "x" + (botRightColumn - upLeftColumn + 1);
     }
 
+    public boolean isOK(){
+        return ((this.botRightRow >= this.upLeftRow) && (this.botRightColumn >= this.upLeftColumn));
+    }
+
 }
