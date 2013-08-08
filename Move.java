@@ -48,8 +48,12 @@ public class Move {
 
 	}
 	
-	public boolean equals(){
-		//is this even necessary?
+	//for testing purposes only
+	public boolean equals(Object obj){
+		if (obj.getClass() != getClass())
+			return false;
+		Move moveObj = (Move)obj;
+		return moveString.equals(moveObj.toString());
 	}
 	
 }
