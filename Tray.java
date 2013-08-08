@@ -1,21 +1,23 @@
 import java.util.ArrayList;
 
 public class Tray{
-    final private int rowsTotal;
+	final private int rowsTotal;
 	final private int colsTotal;
 	final private ArrayList<Block> blocks;
 	final private int hash;
     final private int[][] board;
-    
+    final private ArrayList<Move> moveRoute;
+
 
     public Tray(int rows, int columns, ArrayList<Block> blocks,
-			ArrayList<Move> routeHistory) {
+    		ArrayList<Move> routeHistory) {
     	this.rowsTotal = rows;
     	this.colsTotal = columns;
     	this.blocks = blocks;
-    	hash = calculateDaHashCode(); 
+        this.moveRoute = routeHistory;
         board = new int[rows][columns];
         fillBoard();   
+    	hash = calculateDaHashCode(); 
     }
 
     //for a simpler layout. In the tray, a block will be represented by its index in the arraylist.
@@ -35,7 +37,8 @@ public class Tray{
                     if (board[r][c] != 0){
                         throw new RuntimeException("2 blocks overlap");
                     }
-                    board[r][c] = i;
+                    board[r][c] = i+1;
+                    
                 }
             }
         }
@@ -47,7 +50,7 @@ public class Tray{
 			for (int c = 0; c < colsTotal; c++) {
 				result = prime * result + board[r][c];
 			}
-    }
+    	}
     	return result; 
     }
 
@@ -55,10 +58,21 @@ public class Tray{
     	return hash; 
         
     }
-    public String toString(){
-        
-        
+    public String boardToString(){
+        String s = "";
+        for (int r = 0; r < rowsTotal; r++){
+            for (int c = 0; c < colsTotal; c++){
+                s += board[r][c];
+            }
+        }
+        return s;
     }
+
+    public String toString(){
+
+    }
+        
+        
     public boolean equals(Object obj) {
     	//bunches of if statements
         
