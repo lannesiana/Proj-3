@@ -7,6 +7,20 @@ import junit.framework.TestCase;
 
 
 public class TrayTest extends TestCase {
+
+	public void testInitTray(){
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		Block b1 = new Block(0, 0, 1, 1);
+		blocks.add(b1);
+		Block b2 = new Block(0,2,1,2);
+		blocks.add(b2);
+		Block b3 = new Block(3,1, 3, 1);
+		blocks.add(b3);
+		Block b4 = new Block(4,3,4,3);
+		blocks.add(b4);
+		Tray t1 = new Tray(5, 4, blocks, null);
+		assertEquals("11201120000003000004", t1.boardToString());
+	}
 	
 	public void testCanMoveDirection(){
 		ArrayList<Block> blocks = new ArrayList<Block>();
@@ -19,7 +33,6 @@ public class TrayTest extends TestCase {
 		Block b4 = new Block(4,3,4,3);
 		blocks.add(b4);
 		Tray t1 = new Tray(5, 4, blocks, null);
-		System.out.println(t1.boardToString());
 		/* gives us tray of
 		1 1 2 0
 		1 1 2 0
@@ -44,6 +57,30 @@ public class TrayTest extends TestCase {
 		//blocks cannot move onto another block
 		assertFalse(t1.canMoveRight(b1));
 		assertFalse(t1.canMoveLeft(b2));
+	}
+
+	public void testFindAllMoves(){
+		ArrayList<Block> blocks = new ArrayList<Block>();
+		Block b1 = new Block(0, 0, 1, 1);
+		blocks.add(b1);
+		Block b2 = new Block(0,2,1,2);
+		blocks.add(b2);
+		Block b3 = new Block(3,0, 3, 2);
+		blocks.add(b3);
+		Block b4 = new Block(4,3,4,3);
+		blocks.add(b4);
+		Block b5 = new Block(0,3,1,3);
+		blocks.add(b5);
+		Block b6 = new Block(2,0,2,3);
+		blocks.add(b6);
+		/* gives us tray of
+		1 1 2 5
+		1 1 2 5
+		6 6 6 6
+		3 3 3 0 
+		0 0 0 4
+		*/
+		Tray t1 = new Tray(5, 4, blocks, null);
 	}
 
 }
