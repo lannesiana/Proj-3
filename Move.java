@@ -4,18 +4,18 @@ public class Move {
 	public enum direction{
 		up, down, left, right
 	}
-	private direction dire;
+	private direction dir;
 	
-	public Move(Block block, direction dire) {
+	public Move(Block block, direction dir) {
 		this.block = block;
-		this.dire = dire;
+		this.dir = dir;
 	}
 	
 	public direction getDirection(){			
-		return dire;
+		return dir;
 	}
 	public String toString(){
-		return block + " moves " + dire;
+		return block + " moves " + dir;
 	}
 	
 	public Block getBlock() {
