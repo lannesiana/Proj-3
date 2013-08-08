@@ -78,6 +78,22 @@ public class Tray{
         
     }
 
+    public ArrayList<Move> findAllMoves(){
+        ArrayList<Move> moves = new ArrayList<Move>();
+        for (int i = 0; i < blocks.size(); i++){
+            Block block = blocks.get(i);
+            if (canMoveUp(block))
+                moves.add(new Move(block, Move.Direction.up));
+            if (canMoveRight(block))
+                moves.add(new Move(block, Move.Direction.right));
+            if (canMoveLeft(block))
+                moves.add(new Move(block, Move.Direction.left));
+            if (canMoveDown(block))
+                moves.add(new Move(block, Moves.Direction.down));
+        }
+        return moves;
+    }
+
 
     public boolean canMoveUp(Block block){
         if (block.getULR() > 0){
