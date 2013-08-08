@@ -84,12 +84,12 @@ public class Tray{
             Block block = blocks.get(i);
             if (canMoveUp(block))
                 moves.add(new Move(block, Move.Direction.up));
-            if (canMoveRight(block))
-                moves.add(new Move(block, Move.Direction.right));
+            if (canMoveDown(block))
+                moves.add(new Move(block, Move.Direction.down));
             if (canMoveLeft(block))
                 moves.add(new Move(block, Move.Direction.left));
-            if (canMoveDown(block))
-                moves.add(new Move(block, Moves.Direction.down));
+            if (canMoveRight(block))
+                moves.add(new Move(block, Move.Direction.right));
         }
         return moves;
     }
