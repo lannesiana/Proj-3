@@ -3,7 +3,6 @@ public class Block{
     private int upLeftColumn;
     private int botRightRow;
     private int botRightColumn;
-    private final String[] directions = {"up", "down", "left", "right"};
     
     public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn){
         this.upLeftRow = upLeftRow;
@@ -54,7 +53,14 @@ public class Block{
 
     //overrides Object.equals();
     public boolean equals(Object obj){
-
+        if (obj == null)
+            return false;
+        if (obj.getClass() != getClass())
+            return false;
+        Block other = (Block) obj;
+        if (!(other.getULR() == upLeftRow && other.getULC() == upLeftColumn && other.getBRR() == botRightRow && other.getBRC() == botRightColumn))
+            return false;
+        return true;
     }
 
     //sorts blocks by rows then columns
