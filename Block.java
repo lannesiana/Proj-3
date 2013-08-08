@@ -30,20 +30,20 @@ public class Block{
     }
     
     //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
-    public void move(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
-        if (direction.equals("up")){ //must check if okay to move in this direction first. in tray
+    public void move(Direction direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
+        if (direction.equals(Direction.up)){ //must check if okay to move in this direction first. in tray
                 this.upLeftRow += 1;
                 this.botRightRow += 1;
         }
-        else if (direction.equals("down")){
+        else if (direction.equals(Direction.down)){
                 this.upLeftRow -= 1;
                 this.botRightRow -= 1;
         }
-        else if (direction.equals("left")){
+        else if (direction.equals(Direction.left)){
                 this.upLeftColumn -= 1;
                 this.botRightColumn -= 1;
         }
-        else if (direction.equals("right")){
+        else if (direction.equals(Direction.right)){
                 this.upLeftColumn += 1;
                 this.botRightColumn += 1;
         }
@@ -63,10 +63,20 @@ public class Block{
         return true;
     }
 
-    //sorts blocks by rows then columns
-    public boolean compareTo(Block b){
-
+    public int compareTo(Block b){
+        if (this == b)
+            return 0;
+        if (this.getULR() != b.getULR())
+            return this.getULR() - b.getULR();
+        if (this.getULC() != b.getULC())
+            return this.getULC() - b.getULC();
+        if (this.BRR() != b.getBRR())
+            return this.getBRR() - b.getBRR();
+        if (this.BRC() != b.getBRC())
+            return this.BRC() - b.getBRC();        
     }
+
+    //sorts blocks by rows then columns
 
     public String toString(){
         return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
