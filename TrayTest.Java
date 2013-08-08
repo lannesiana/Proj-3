@@ -19,6 +19,7 @@ public class TrayTest extends TestCase {
 		Block b4 = new Block(4,3,4,3);
 		blocks.add(b4);
 		Tray t1 = new Tray(5, 4, blocks, null);
+		System.out.println(t1.boardToString());
 		/* gives us tray of
 		1 1 2 0
 		1 1 2 0
