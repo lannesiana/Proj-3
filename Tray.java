@@ -74,8 +74,12 @@ public class Tray{
         
         
     public boolean equals(Object obj) {
-    	//bunches of if statements
-        
+        if (!(obj.getClass() == getClass()))
+            return false;
+        Tray other = (Tray)obj;
+        if (!(this.boardToString.equals(other.boardToString)))
+            return false;
+        return true;
     }
 
     public ArrayList<Move> findAllMoves(){
