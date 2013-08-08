@@ -12,7 +12,7 @@ public class TrayTest extends TestCase {
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		Block b1 = new Block(0, 0, 1, 1);
 		blocks.add(b1);
-		Block b2 = new Block(0,3,1,3);
+		Block b2 = new Block(0,2,1,2);
 		blocks.add(b2);
 		Block b3 = new Block(3,1, 3, 1);
 		blocks.add(b3);
