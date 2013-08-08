@@ -21,6 +21,25 @@ public class TrayTest extends TestCase {
 		Tray t1 = new Tray(5, 4, blocks, null);
 		assertEquals("11201120000003000004", t1.boardToString());
 	}
+
+	public void testEquals(){
+		Block b1 = new Block(0, 0, 1, 1);
+		blocks.add(b1);
+		Block b2 = new Block(0,2,1,2);
+		blocks.add(b2);
+		Block b3 = new Block(3,1, 3, 1);
+		blocks.add(b3);
+		Block b4 = new Block(4,3,4,3);
+		blocks.add(b4);
+		Tray t1 = new Tray(5, 4, blocks, null);
+		Tray t2 = new Tray(5, 4, blocks, null);
+		Tray t3 = new Tray(4, 5, blocks, null);
+		Tray t4 = new Tray(6, 4, blocks, null);
+		assertTrue(t1.equals(t2));
+		assertFalse(t1.equals(t3));
+		assertFalse(t1.equals(t4));
+
+	}
 	
 	public void testCanMoveDirection(){
 		ArrayList<Block> blocks = new ArrayList<Block>();
