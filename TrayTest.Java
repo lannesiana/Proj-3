@@ -58,7 +58,7 @@ public class TrayTest extends TestCase {
 		assertFalse(t1.canMoveRight(b1));
 		assertFalse(t1.canMoveLeft(b2));
 	}
-
+/*
 	public void testFindAllMoves(){
 		ArrayList<Block> blocks = new ArrayList<Block>();
 		Block b1 = new Block(0, 0, 1, 1);
@@ -80,7 +80,24 @@ public class TrayTest extends TestCase {
 		3 3 3 0 
 		0 0 0 4
 		*/
-		Tray t1 = new Tray(5, 4, blocks, null);
+	/*	Tray t1 = new Tray(5, 4, blocks, null);
+		ArrayList<Move> methodMoves = t1.findAllMoves();
+		ArrayList<Move> allMoves = new ArrayList<Move>();
+		Move m1 = new Move(b3, Move.Direction.down);
+		Move m2 = new Move(b3, Move.Direction.right);
+		Move m3 = new Move(b4, Move.Direction.up);
+		Move m4 = new Move(b4, Move.Direction.left);
+		Move m5 = new Move(b6, Move.Direction.down);
+		allMoves.add(m1);
+		allMoves.add(m2);
+		allMoves.add(m3);
+		allMoves.add(m4);
+		allMoves.add(m5);
+		assertTrue(methodMoves.size() == allMoves.size());		
+		for (int i = 0; i <= allMoves.size(); i++){
+			assertEquals("move " + i + " is incorrect", allMoves.get(i), methodMoves.get(i));
+		}
 	}
+*/
 
 }
