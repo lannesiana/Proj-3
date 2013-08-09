@@ -1,5 +1,4 @@
 Proj-3
 ======
-"POOOOOOOOOP IS DELICIOUSSS
-MMMMMMMMMMMM"
--Norman :D
+"When in doubt, just take a poop!"
+-Norman
