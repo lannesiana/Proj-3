@@ -157,15 +157,15 @@ public class Tray{
     		
             	if (block1.getULR() == block2.getULR()) {
             		if (block1.getULC() == block2.getULC()){
-						return false; 
+				return false; 
             		}
             	}
-				if (block1.getBRR() == block2.getBRR()) {
-					if (block1.getBRC() == block2.getBRC()) {
-						return false; 
+		if (block1.getBRR() == block2.getBRR()) {
+			if (block1.getBRC() == block2.getBRC()) {
+				return false; 
 					
-					}
-				}
+		}
+		}
     	}
 		//non-negative Blocks
     	for (int i=1; i < this.blocks.size(); i++) {
