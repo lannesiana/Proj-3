@@ -1,14 +1,27 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Block{
     private int upLeftRow;
     private int upLeftColumn;
     private int botRightRow;
     private int botRightColumn;
+    final private int[] allBlox = new int[4];
+    private final String[] directions = {"up", "down", "left", "right"};
     
-    public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn){
+    //Anni added allBlox
+    
+    public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn, int[] allBlox){
         this.upLeftRow = upLeftRow;
         this.upLeftColumn = upLeftColumn;
         this.botRightRow = botRightRow;
         this.botRightColumn = botRightColumn;
+        this.allBlox[0] = upLeftRow;
+        this.allBlox[1] = upLeftColumn;
+        this.allBlox[2] = botRightRow;
+        this.allBlox[3] = botRightColumn;
+        
+        
         
         // do we want to put blocks into a hash? need hash code?
     }
@@ -29,21 +42,23 @@ public class Block{
         return this.botRightColumn;
     }
     
+    
+    
     //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
-    public void move(Direction direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
-        if (direction.equals(Direction.up)){ //must check if okay to move in this direction first. in tray
+    public void move(String direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
+        if (direction.equals("up")){ //must check if okay to move in this direction first. in tray
                 this.upLeftRow += 1;
                 this.botRightRow += 1;
         }
-        else if (direction.equals(Direction.down)){
+        else if (direction.equals("down")){
                 this.upLeftRow -= 1;
                 this.botRightRow -= 1;
         }
-        else if (direction.equals(Direction.left)){
+        else if (direction.equals("left")){
                 this.upLeftColumn -= 1;
                 this.botRightColumn -= 1;
         }
-        else if (direction.equals(Direction.right)){
+        else if (direction.equals("right")){
                 this.upLeftColumn += 1;
                 this.botRightColumn += 1;
         }
@@ -53,31 +68,13 @@ public class Block{
 
     //overrides Object.equals();
     public boolean equals(Object obj){
-        if (obj == null)
-            return false;
-        if (obj.getClass() != getClass())
-            return false;
-        Block other = (Block) obj;
-        if (!(other.getULR() == upLeftRow && other.getULC() == upLeftColumn && other.getBRR() == botRightRow && other.getBRC() == botRightColumn))
-            return false;
-        return true;
-    }
 
-    public int compareTo(Block b){
-        if (this == b)
-            return 0;
-        if (this.getULR() != b.getULR())
-            return this.getULR() - b.getULR();
-        if (this.getULC() != b.getULC())
-            return this.getULC() - b.getULC();
-        if (this.getBRR() != b.getBRR())
-            return this.getBRR() - b.getBRR();
-        if (this.getBRC() != b.getBRC())
-            return this.getBRC() - b.getBRC(); 
-        return 0;
     }
 
     //sorts blocks by rows then columns
+    public boolean compareTo(Block b){
+
+    }
 
     public String toString(){
         return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
@@ -85,10 +82,6 @@ public class Block{
 
     public String blockDimensions(){
         return (botRightRow - upLeftRow + 1) + "x" + (botRightColumn - upLeftColumn + 1);
-    }
-
-    public boolean isOK(){
-        return ((this.botRightRow >= this.upLeftRow) && (this.botRightColumn >= this.upLeftColumn));
     }
 
 }
