@@ -19,7 +19,10 @@ public class TrayTest extends TestCase {
 		Block b4 = new Block(4,3,4,3);
 		blocks.add(b4);
 		Tray t1 = new Tray(5, 4, blocks, null);
+		assertTrue(t1.isOK());
 		assertEquals("11201120000003000004", t1.boardToString());
+		Tray t2 = new Tray(3, 3, blocks, null);
+		assertFalse(t2.isOK());
 	}
 
 	public void testEquals(){
@@ -52,6 +55,7 @@ public class TrayTest extends TestCase {
 		Block b4 = new Block(4,3,4,3);
 		blocks.add(b4);
 		Tray t1 = new Tray(5, 4, blocks, null);
+		assertTrue(t1.isOK());
 		/* gives us tray of
 		1 1 2 0
 		1 1 2 0
