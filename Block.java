@@ -43,6 +43,9 @@ public class Block{
         
     }
     
+    public int[] getallBlox(){
+        return this.allBlox; 
+    }
     
     
     
