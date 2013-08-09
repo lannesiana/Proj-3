@@ -144,12 +144,47 @@ public class Tray{
         return false;
     }
 
-    public static isOK(){
-        //overlapping blocks
-        //all block dimensions are nonnegative
-        //blocks are in bounds
+   
+    public boolean isOK(){		
+		//overlapping Blocks
+    	int x = 0; 
+    	Block blockGen; 
+    	
+    	for (int i = 0; i < this.blocks.size(); i++){
+            Block block1 = blocks.get(i);
+            Block block2 = blocks.get(i);    
+            	
+    		
+            	if (block1.getULR() == block2.getULR()) {
+            		if (block1.getULC() == block2.getULC()){
+						return false; 
+            		}
+            	}
+				if (block1.getBRR() == block2.getBRR()) {
+					if (block1.getBRC() == block2.getBRC()) {
+						return false; 
+					
+					}
+				}
+    	}
+		//non-negative Blocks
+    	for (int i=1; i < this.blocks.size(); i++) {
+    	
+    		arraylist.get(index).geetallBlocks(int)
+    		//Derp
+    	}
+            
+    	}
+            
+                  
+              
+            
 
-    }
+		
+		
+			return false; 
+		}
+		return true; 
 
-
+}
 }
