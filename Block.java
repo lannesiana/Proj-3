@@ -39,8 +39,10 @@ public class Block{
     }
 
     public int getBRC(){
-        return this.botRightColumn;
+        return this.botRightColumn;        
+        
     }
+    
     
     
     
