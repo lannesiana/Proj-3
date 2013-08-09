@@ -63,8 +63,32 @@ public class Block{
             throw new Exception("not a direction");
     }
 
-    public Block createBlockAfterMove(Move move){
-        
+    public Block createBlockAfterMove(Direction direction){
+        Block block;
+        if (direction.equals(Direction.up)){ //must check if okay to move in this direction first. in tray
+                int ulr = upLeftRow + 1;
+                int brr = botRightRow + 1;
+                block = new Block(ulr, upLeftColumn, brr, botRightColumn)
+
+        }
+        else if (direction.equals(Direction.down)){
+                int ulr = upLeftRow - 1;
+                int brr = botRightRow - 1;
+                block = new Block(ulr, upLeftColumn, brr, botRightcolumn);
+        }
+        else if (direction.equals(Direction.left)){
+                int ulc = upLeftColumn - 1;
+                int brc = botRightColumn - 1;
+                block = new Block(upLeftRow, ulc, botRightRow, brc);
+        }
+        else if (direction.equals(Direction.right)){
+                int ulc = upLeftColumn + 1;
+                int brc = botRightColumn + 1;
+                block = new Block(upLeftRow, ulc, botRightRow, brc);
+        }
+        else
+            throw new Exception("not a direction");
+        return block;
     }
 
     //overrides Object.equals();
