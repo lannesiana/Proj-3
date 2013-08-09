@@ -146,7 +146,7 @@ public class Tray{
 
    
     public boolean isOK(){		
-		//overlapping Blocks
+	//overlapping Blocks
     	int x = 0; 
     	Block blockGen; 
     	
@@ -167,7 +167,7 @@ public class Tray{
 		}
 		}
     	}
-		//non-negative Blocks
+	//non-negative Blocks
     	for (int i=1; i < this.blocks.size(); i++) {
     	
     		arraylist.get(index).geetallBlocks(int)
