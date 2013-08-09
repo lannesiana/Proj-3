@@ -37,8 +37,7 @@ public class Tray{
                     if (board[r][c] != 0){
                         throw new RuntimeException("2 blocks overlap");
                     }
-                    board[r][c] = i+1;
-                    
+                    board[r][c] = i+1;                    
                 }
             }
         }
@@ -66,10 +65,6 @@ public class Tray{
             }
         }
         return s;
-    }
-
-    public String toString(){
-
     }
         
         
