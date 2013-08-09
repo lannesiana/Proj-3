@@ -70,10 +70,11 @@ public class Block{
             return this.getULR() - b.getULR();
         if (this.getULC() != b.getULC())
             return this.getULC() - b.getULC();
-        if (this.BRR() != b.getBRR())
+        if (this.getBRR() != b.getBRR())
             return this.getBRR() - b.getBRR();
-        if (this.BRC() != b.getBRC())
-            return this.BRC() - b.getBRC();        
+        if (this.getBRC() != b.getBRC())
+            return this.getBRC() - b.getBRC(); 
+        return 0;
     }
 
     //sorts blocks by rows then columns
