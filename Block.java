@@ -6,20 +6,20 @@ public class Block{
     private int upLeftColumn;
     private int botRightRow;
     private int botRightColumn;
-    final private int[] allBlox = new int[4];
+    final private int[] allBlocks = new int[4];
     private final String[] directions = {"up", "down", "left", "right"};
     
-    //Anni added allBlox
+    //Anni added allBlocks
     
-    public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn, int[] allBlox){
+    public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn, int[] allBlocks){
         this.upLeftRow = upLeftRow;
         this.upLeftColumn = upLeftColumn;
         this.botRightRow = botRightRow;
         this.botRightColumn = botRightColumn;
-        this.allBlox[0] = upLeftRow;
-        this.allBlox[1] = upLeftColumn;
-        this.allBlox[2] = botRightRow;
-        this.allBlox[3] = botRightColumn;
+        this.allBlocks[0] = upLeftRow;
+        this.allBlocks[1] = upLeftColumn;
+        this.allBlocks[2] = botRightRow;
+        this.allBlocks[3] = botRightColumn;
         
         
         
@@ -39,12 +39,11 @@ public class Block{
     }
 
     public int getBRC(){
-        return this.botRightColumn;        
-        
+        return this.botRightColumn;
     }
     
-    public int[] getallBlox(){
-        return this.allBlox; 
+    public int[] getallBlocks(){
+        return this.allBlocks; 
     }
     
     
