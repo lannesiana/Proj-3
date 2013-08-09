@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tray{
 	final private int rowsTotal;
@@ -6,7 +7,7 @@ public class Tray{
 	final private ArrayList<Block> blocks;
 	final private int hash;
     final private int[][] board;
-    final private ArrayList<Move> moveRoute;
+    final private ArrayList<Move> moveHistory;
 
 
     public Tray(int rows, int columns, ArrayList<Block> blocks,
@@ -14,7 +15,7 @@ public class Tray{
     	this.rowsTotal = rows;
     	this.colsTotal = columns;
     	this.blocks = blocks;
-        this.moveRoute = routeHistory;
+        this.moveHistory = routeHistory;
         board = new int[rows][columns];
         fillBoard();   
     	hash = calculateDaHashCode(); 
@@ -66,6 +67,13 @@ public class Tray{
         }
         return s;
     }
+
+    public void printMoveHistory(){
+        for (int i = 0; i < moveHistory.size(); i++){
+            System.out.println(moveHistory.get(i).toString());
+        }
+
+    }
         
         
     public boolean equals(Object obj) {
@@ -75,6 +83,13 @@ public class Tray{
         if (!(this.boardToString.equals(other.boardToString)))
             return false;
         return true;
+    }
+
+    public Tray createTrayAfterMove(Block b, Direction dir){
+        //make copy of blocks and moveHistory
+        //access the block in blocksCopy and mutate it by "moving". (may have to create new block in case pointers still connect to original blocks list.)
+        //create Move and add it to moveHistory
+        //use tray constructor with new block list and new history of moves
     }
 
     public ArrayList<Move> findAllMoves(){
@@ -177,7 +192,7 @@ public class Tray{
     	}
             
                   
-              
+    //blocks are in bounds
             
 
 		
