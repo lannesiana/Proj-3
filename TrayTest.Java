@@ -26,6 +26,7 @@ public class TrayTest extends TestCase {
 	}
 
 	public void testEquals(){
+		ArrayList<Block> blocks = new ArrayList<Block>();
 		Block b1 = new Block(0, 0, 1, 1);
 		blocks.add(b1);
 		Block b2 = new Block(0,2,1,2);
