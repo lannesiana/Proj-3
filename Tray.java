@@ -67,6 +67,11 @@ public class Tray{
         }
         return s;
     }
+    
+    public boolean goalReached(List<Block> goals){
+    	return blocks.containsAll(goals);
+    	
+    }
 
     public void printMoveHistory(){
         for (int i = 0; i < moveHistory.size(); i++){
