@@ -31,11 +31,48 @@ public class Solver {
 	}
 
 	public void solve(){
+		trayQueue.add(initialTray);
+		visitedTrays.add(initialTray.hashCode());
+		while (!trayQueue.isEmpty()){
+			Tray t1 = trayQueue.remove();
+				if (t1.goalReached(blocksGoal))
+					t1.printMoveHistory();
+				
+				ArrayList<Move> allMoves= t1.findAllMoves(); 
+				for (int k = 0; k < allMoves.size(); k++ ){		
+					Move m1 = allMoves.get(k);
+					
+					Direction dire = m1.getDirection();
+					Block blok = m1.getBlock();					
+					Tray normanSux = t1.createTrayAfterMove(blok, dire);
+					if (!visitedTrays.contains(normanSux)){
+						trayQueue.add(normanSux);
+						visitedTrays.add(normanSux.hashCode());
+				}}
+			System.exit(1);
+		}
 		
-	}
+		if (trayQueue.isEmpty()){
+			//no soln
+		}
+									
+		}
+			
+			
+			//pop off first item in queue, examine
+			//get all possible moves of tray
+			//make new tray for each move 
+			//add all moves into queue, repeat loop
+			//if empty queue, solution has not been found
+			//check if current tray matches the goal config (new method)
+		
+		
+
+	
 
 	private static Solver readCmd(String[] args) throws IOException{
-		Solver sol = new Solver();
+		//INTENSE MOMENTZZZ
+		Solver sol = new Solver();		
 		String option = null;
 		String initFile = null;
 		String goalFile = null;
@@ -56,7 +93,7 @@ public class Solver {
 			else
 				throw new IOException("incorrect format");
 		}
-		
+
 		String line;
 		//read initial configuration file;
 		BufferedReader fileConfig = null;
@@ -128,6 +165,5 @@ public class Solver {
 
 
 }
-
 
 
