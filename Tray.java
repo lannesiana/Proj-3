@@ -80,7 +80,7 @@ public class Tray{
         if (!(obj.getClass() == getClass()))
             return false;
         Tray other = (Tray)obj;
-        if (!(this.boardToString.equals(other.boardToString)))
+        if (!(this.boardToString().equals(other.boardToString())))
             return false;
         return true;
     }
