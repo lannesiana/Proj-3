@@ -162,42 +162,45 @@ public class Tray{
    
     public boolean isOK(){		
 	//overlapping Blocks
-    	int x = 0; 
-    	Block blockGen; 
-    	
+  	
     	for (int i = 0; i < this.blocks.size(); i++){
             Block block1 = blocks.get(i);
-            Block block2 = blocks.get(i);    
-            	
-    		
-            	if (block1.getULR() == block2.getULR()) {
-            		if (block1.getULC() == block2.getULC()){
-				return false; 
-            		}
+            for (int k = 0; k < this.blocks.size(); k++){
+            	Block block2 = blocks.get(k);
+            
+            	if (!(block1 == blocks.get(k))){
+            		if (block2.getULR() <= block1.getULR() && block2.getULR() >= block1.getBRR()){
+            			if(block2.getULC() <= block1.getULC() && block2.getULC() >= block1.getBRC())
+            				return false; 
+            		
             	}
-		if (block1.getBRR() == block2.getBRR()) {
-			if (block1.getBRC() == block2.getBRC()) {
-				return false; 
-					
 		}
 		}
     	}
-	//non-negative Blocks
-    	for (int i=1; i < this.blocks.size(); i++) {
+    
     	
-    		arraylist.get(index).geetallBlocks(int)
-    		//Derp
+	//non-negative Blocks
+    	for (int i = 0; i < this.blocks.size(); i++) {  
+    		Block block1 = blocks.get(i);
+    		for(int k = 0; k <= 4; k++){    			
+    			if (block1.getBlockCoords()[k] < 0)
+   		 			return false; 
     	}
-            
     	}
-            
-                  
+    	
+        
     //blocks are in bounds
-            
+    	for (int i = 0; i < this.blocks.size(); i++) {
+    		Block block1 = blocks.get(i); 
+    		
+    		if (block1.getBRC() > (this.rowsTotal - 1) || block1.getULC() < 0)
+    			return false; 
+    			
+    		//brc > number rows false
+    		//urc < 0 false
+    	         	        
 
-		
-		
-			return false; 
+
 		}
 		return true; 
 
