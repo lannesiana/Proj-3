@@ -95,6 +95,19 @@ public class Tray{
         //access the block in blocksCopy and mutate it by "moving". (may have to create new block in case pointers still connect to original blocks list.)
         //create Move and add it to moveHistory
         //use tray constructor with new block list and new history of moves
+    	int newRow = this.rowsTotal;
+    	int newCols = this.colsTotal;
+    	ArrayList newBlocks = this.blocks;
+    	ArrayList newMoveHistory = this.moveHistory;
+    	Move change = new Move(b, dir);
+    	
+    	for (int i = 0; i < newBlocks.size(); i++){
+    		if (newBlocks.get(i) == b){
+    			newBlocks.set(i, change.getBlock());
+    		}
+    	}
+    	newMoveHistory.add(change);
+    	Tray blocksCopy = new Tray(newRow, newCols, newBlocks, newMoveHistory);
     }
 
     public ArrayList<Move> findAllMoves(){
