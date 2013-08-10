@@ -66,14 +66,14 @@ public class Block{
     public Block createBlockAfterMove(Direction direction) throws Exception{
         Block block;
         if (direction.equals(Direction.up)){ //must check if okay to move in this direction first. in tray
-                int ulr = upLeftRow + 1;
-                int brr = botRightRow + 1;
+                int ulr = upLeftRow - 1;
+                int brr = botRightRow - 1;
                 block = new Block(ulr, upLeftColumn, brr, botRightColumn);
 
         }
         else if (direction.equals(Direction.down)){
-                int ulr = upLeftRow - 1;
-                int brr = botRightRow - 1;
+                int ulr = upLeftRow + 1;
+                int brr = botRightRow + 1;
                 block = new Block(ulr, upLeftColumn, brr, botRightColumn);
         }
         else if (direction.equals(Direction.left)){
@@ -119,8 +119,12 @@ public class Block{
 
     //sorts blocks by rows then columns
 
-    public String toString(){
+    public String cleanToString(){
         return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
+    }
+    
+    public String toString(){
+        return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + " " + botRightColumn + "]";
     }
 
     public String blockDimensions(){
