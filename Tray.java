@@ -7,7 +7,7 @@ public class Tray{
 	final private ArrayList<Block> blocks;
 	final private int hash;
     final private int[][] board;
-    final private ArrayList<Move> moveHistory;
+    private ArrayList<Move> moveHistory = new ArrayList<Move>();
 
 
     public Tray(int rows, int columns, ArrayList<Block> blocks,
@@ -17,7 +17,7 @@ public class Tray{
     	this.blocks = blocks;
         this.moveHistory = routeHistory;
         board = new int[rows][columns];
-        fillBoard();   
+        this.fillBoard();   
     	hash = calculateDaHashCode(); 
     }
 
@@ -28,20 +28,28 @@ public class Tray{
     //3 3 3 0
     //groups of similar numbers represent one block, and 0s represent empty spaces
     private void fillBoard(){
+        System.out.println(this.boardToString()); //debug, should be all zeroes
         for (int i = 0; i < this.blocks.size(); i++){
             Block block = blocks.get(i);
             for (int r = block.getULR(); r <= block.getBRR(); r++){
                 for (int c = block.getULC(); c <= block.getBRC(); c++){
+                    System.out.println("");
                     if (r >= rowsTotal || c >= colsTotal){
                         throw new RuntimeException("rows/columns are out of bounds");
                     }
                     if (board[r][c] != 0){
                         throw new RuntimeException("2 blocks overlap");
                     }
-                    board[r][c] = i+1;                    
+                    board[r][c] = i+1;    
+                	System.out.println("fillingBoard");
+                    System.out.println(this.boardToString()); //MOAR DEBUGGING
                 }
             }
         }
+    }
+    
+    public ArrayList<Block> getBlocks(){
+    	return this.blocks;
     }
     private int calculateDaHashCode(){
     	int prime = 47;
@@ -63,6 +71,9 @@ public class Tray{
         for (int r = 0; r < rowsTotal; r++){
             for (int c = 0; c < colsTotal; c++){
                 s += board[r][c];
+                if ((c + 1) % 4 == 0){
+                	s += "\\";
+                }
             }
         }
         return s;
@@ -90,24 +101,40 @@ public class Tray{
         return true;
     }
 
-    public Tray createTrayAfterMove(Block b, Direction dir){
+    public Tray createTrayAfterMove(Block b, Direction dir) throws Exception{
         //make copy of blocks and moveHistory
         //access the block in blocksCopy and mutate it by "moving". (may have to create new block in case pointers still connect to original blocks list.)
         //create Move and add it to moveHistory
         //use tray constructor with new block list and new history of moves
-    	int newRow = this.rowsTotal;
-    	int newCols = this.colsTotal;
-    	ArrayList newBlocks = this.blocks;
-    	ArrayList newMoveHistory = this.moveHistory;
+    	ArrayList<Block> newBlocks = this.blocks;
+    	ArrayList<Move> newMoveHistory = new ArrayList<Move>();
+        if (moveHistory != null){
+            newMoveHistory = (ArrayList<Move>) moveHistory.clone();
+        }
     	Move change = new Move(b, dir);
+        Block newBlock = b.createBlockAfterMove(dir);
     	
-    	for (int i = 0; i < newBlocks.size(); i++){
+    	for (int i = 0; i < blocks.size(); i++){
     		if (newBlocks.get(i) == b){
-    			newBlocks.set(i, change.getBlock());
+    			newBlocks.set(i, newBlock);
     		}
     	}
+        System.out.println(change.cleanToString());
+        System.out.println(this.canMoveDown(change.getBlock()));
+    	/*if (!newMoveHistory.isEmpty()){
+        for (int i = 0; i<newMoveHistory.size(); i++)
+            System.out.println("move: " + newMoveHistory.get(i).cleanToString());
+
+    	}*/
     	newMoveHistory.add(change);
-    	Tray blocksCopy = new Tray(newRow, newCols, newBlocks, newMoveHistory);
+    	System.out.println(newMoveHistory.size());//...and more debugging statements... WHY YOU NO WORK D:<
+        for (int i = 0; i<newMoveHistory.size(); i++)
+            System.out.println("move: " + newMoveHistory.get(i).cleanToString());
+
+        for (int i = 0; i < newBlocks.size(); i++){ //MOAR DEBUGGING
+            System.out.println(newBlocks.get(i).toString()); //AND MOARR
+        }   
+    	Tray blocksCopy = new Tray(rowsTotal, colsTotal, newBlocks, newMoveHistory);
     	return blocksCopy;
     }
 
@@ -192,9 +219,9 @@ public class Tray{
             			if(block2.getULC() <= block1.getULC() && block2.getULC() >= block1.getBRC())
             				return false; 
             		
-            	}
-		}
-		}
+            	    }
+		        }     
+		    }
     	}
     
     	
@@ -204,7 +231,7 @@ public class Tray{
     		for(int k = 0; k <= 4; k++){    			
     			if (block1.getBlockCoords()[k] < 0)
    		 			return false; 
-    	}
+    	    }
     	}
     	
         
