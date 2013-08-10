@@ -108,6 +108,7 @@ public class Tray{
     	}
     	newMoveHistory.add(change);
     	Tray blocksCopy = new Tray(newRow, newCols, newBlocks, newMoveHistory);
+    	return blocksCopy;
     }
 
     public ArrayList<Move> findAllMoves(){
