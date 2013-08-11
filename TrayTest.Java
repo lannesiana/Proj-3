@@ -20,7 +20,7 @@ public class TrayTest extends TestCase {
 		blocks.add(b4);
 		Tray t1 = new Tray(5, 4, blocks, null);
 		//assertTrue(t1.isOK());
-		assertEquals("11201120000003000004", t1.boardToString());
+		assertEquals("1120\\1120\\0000\\0300\\0004\\", t1.boardToString());
 	}
 */
 /*	public void testEquals(){
@@ -150,7 +150,7 @@ public class TrayTest extends TestCase {
 		Tray newTray = t1.createTrayAfterMove(t1.getBlocks().get(0), Direction.down); 
 		System.out.print("HERRO");
 		System.out.println(newTray.boardToString());
-		assertEquals("00201120110003000004", newTray.boardToString());
+		assertEquals("0020\\1120\\1100\\0300\\0004\\", newTray.boardToString());
 	}
 
 
