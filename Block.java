@@ -124,7 +124,7 @@ public class Block{
     }
     
     public String toString(){
-        return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + " " + botRightColumn + "]";
+        return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
     }
 
     public String blockDimensions(){
