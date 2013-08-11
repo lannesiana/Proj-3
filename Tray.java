@@ -8,6 +8,7 @@ public class Tray{
 	final private int hash;
     final private int[][] board;
     private ArrayList<Move> moveHistory = new ArrayList<Move>();
+    private boolean debug = true;
 
 
     public Tray(int rows, int columns, ArrayList<Block> blocks,
@@ -19,13 +20,11 @@ public class Tray{
         board = new int[rows][columns];
         this.fillBoard();   
     	hash = calculateDaHashCode(); 
-        if (Solver.debug){
-            System.out.println("NEW TRAY CREATED:")
+        if (debug){
+            System.out.println("NEW TRAY CREATED:");
             System.out.println(this.boardToString());
             for (int i = 0; i < blocks.size(); i++)
                 System.out.println("BLOCK: " + blocks.get(i).toString());
-            for (int i = 0; i < moveHistory.size(); i++)
-                System.out.println("MOVE HISTORY " + moveHistory.get(i).toString());
             System.out.println("END TRAY");
             System.out.println("");
         }
