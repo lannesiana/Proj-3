@@ -18,53 +18,62 @@ public class Solver {
 	private List<Block> blocksGoal;
 	private Queue<Tray> trayQueue = new LinkedList<Tray>();
 	private Set<Integer> visitedTrays = new HashSet<Integer>();
-	private boolean debug;
+	public boolean debug = true;
 
 
 	public Solver(){
 
 	}
 
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, Exception{
 		Solver sol = readCmd(args);
 		sol.solve();
 	}
 
-	public void solve(){
+	//remove first item in queue, examine
+	//get all possible moves of tray
+	//make new tray for each move 
+	//add all moves into queue, repeat loop
+	//if empty queue, solution has not been found
+	//check if current tray matches the goal config (new method)
+
+	
+	//NOT ADDING TO QUEUEU CORRECTLY
+	public void solve() throws Exception{
+		boolean won = false; //debug
 		trayQueue.add(initialTray);
 		visitedTrays.add(initialTray.hashCode());
 		while (!trayQueue.isEmpty()){
 			Tray t1 = trayQueue.remove();
-				if (t1.goalReached(blocksGoal))
+				if (t1.goalReached(blocksGoal)){
+					won = true; //DELETE LATERRRZZ
 					t1.printMoveHistory();
+					break;
+				}
 				
-				ArrayList<Move> allMoves= t1.findAllMoves(); 
-				for (int k = 0; k < allMoves.size(); k++ ){		
+				ArrayList<Move> allMoves = t1.findAllMoves(); 
+				for (int k = 0; k < allMoves.size(); ){		
 					Move m1 = allMoves.get(k);
 					
 					Direction dire = m1.getDirection();
-					Block blok = m1.getBlock();					
+					Block blok = m1.getBlock();
+					if(debug)
+						System.out.println("BEFORE: " + t1.boardToString());
 					Tray normanSux = t1.createTrayAfterMove(blok, dire);
-					if (!visitedTrays.contains(normanSux)){
-						trayQueue.add(normanSux);
+					if (debug)
+						System.out.println("NEW: " + normanSux.boardToString());
+					if (!visitedTrays.contains(normanSux.hashCode())){
+						trayQueue.add(t1.createTrayAfterMove(blok, dire));
 						visitedTrays.add(normanSux.hashCode());
 				}}
-			System.exit(1);
-		}
-		
-		if (trayQueue.isEmpty()){
-			//no soln
+			System.out.println(won);
+			System.exit(1); //trayQue is empty, no more moves to be made.
 		}
 									
 		}
 			
 			
-			//pop off first item in queue, examine
-			//get all possible moves of tray
-			//make new tray for each move 
-			//add all moves into queue, repeat loop
-			//if empty queue, solution has not been found
-			//check if current tray matches the goal config (new method)
+			
 		
 		
 
@@ -153,8 +162,7 @@ public class Solver {
 					int upLeftColumn = Integer.parseInt(blockPos[1]);
 					int botRightRow = Integer.parseInt(blockPos[2]);
 					int botRightColumn = Integer.parseInt(blockPos[3]);
-					Block b = new Block(upLeftRow, upLeftColumn, botRightRow, botRightColumn);
-					blocksGoal.add(b);
+					blocksGoal.add(new Block(upLeftRow, upLeftColumn, botRightRow, botRightColumn));
 				}
 				sol.blocksGoal = blocksGoal; //uhh did i have this file already?
 			} catch(IOException e){
