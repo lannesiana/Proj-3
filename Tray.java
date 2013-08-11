@@ -19,6 +19,16 @@ public class Tray{
         board = new int[rows][columns];
         this.fillBoard();   
     	hash = calculateDaHashCode(); 
+        if (Solver.debug){
+            System.out.println("NEW TRAY CREATED:")
+            System.out.println(this.boardToString());
+            for (int i = 0; i < blocks.size(); i++)
+                System.out.println("BLOCK: " + blocks.get(i).toString());
+            for (int i = 0; i < moveHistory.size(); i++)
+                System.out.println("MOVE HISTORY " + moveHistory.get(i).toString());
+            System.out.println("END TRAY");
+            System.out.println("");
+        }
     }
 
     //for a simpler layout. In the tray, a block will be represented by its index in the arraylist.
@@ -28,12 +38,10 @@ public class Tray{
     //3 3 3 0
     //groups of similar numbers represent one block, and 0s represent empty spaces
     private void fillBoard(){
-        System.out.println(this.boardToString()); //debug, should be all zeroes
         for (int i = 0; i < this.blocks.size(); i++){
             Block block = blocks.get(i);
             for (int r = block.getULR(); r <= block.getBRR(); r++){
                 for (int c = block.getULC(); c <= block.getBRC(); c++){
-                    System.out.println("");
                     if (r >= rowsTotal || c >= colsTotal){
                         throw new RuntimeException("rows/columns are out of bounds");
                     }
@@ -41,8 +49,6 @@ public class Tray{
                         throw new RuntimeException("2 blocks overlap");
                     }
                     board[r][c] = i+1;    
-                	System.out.println("fillingBoard");
-                    System.out.println(this.boardToString()); //MOAR DEBUGGING
                 }
             }
         }
@@ -119,19 +125,21 @@ public class Tray{
     			newBlocks.set(i, newBlock);
     		}
     	}
-        System.out.println(change.cleanToString());
-        System.out.println(this.canMoveDown(change.getBlock()));
+        newMoveHistory.add(change);
+
     	/*if (!newMoveHistory.isEmpty()){
         for (int i = 0; i<newMoveHistory.size(); i++)
             System.out.println("move: " + newMoveHistory.get(i).cleanToString());
 
     	}*/
-    	newMoveHistory.add(change);
-    	System.out.println(newMoveHistory.size());//...and more debugging statements... WHY YOU NO WORK D:<
-        for (int i = 0; i<newMoveHistory.size(); i++)
-            System.out.println("move: " + newMoveHistory.get(i).cleanToString());
-
-        for (int i = 0; i < newBlocks.size(); i++){ //MOAR DEBUGGING
+//DEBUGGING
+        if (debug){
+            System.out.println("MoveHistory length: " + newMoveHistory.size());//...and more debugging statements... WHY YOU NO WORK D:<
+            System.out.println("MOVE: " + change.cleanToString());
+            System.out.println("CAN MOVE BE MADE?: " + this.canMoveDown(change.getBlock()));
+            for (int i = 0; i<newMoveHistory.size(); i++)
+                System.out.println("move: " + newMoveHistory.get(i).cleanToString());
+            for (int i = 0; i < newBlocks.size(); i++) //MOAR DEBUGGING
             System.out.println(newBlocks.get(i).toString()); //AND MOARR
         }   
     	Tray blocksCopy = new Tray(rowsTotal, colsTotal, newBlocks, newMoveHistory);
