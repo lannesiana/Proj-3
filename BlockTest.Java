@@ -31,12 +31,12 @@ public class BlockTest extends TestCase {
 		assertEquals("Block[0 1 1 2]", upBlock.toString());
 		Block downBlock = b1.createBlockAfterMove(Direction.down);
 		System.out.print(downBlock.toString());
-		assertEquals("Block[1 1 2 2]", downBlock.toString());
+		assertEquals("Block[2 1 3 2]", downBlock.toString());
 		Block leftBlock = b1.createBlockAfterMove(Direction.left);
 		System.out.print(leftBlock.toString());
 		assertEquals("Block[1 0 2 1]", leftBlock.toString());
 		Block rightBlock = b1.createBlockAfterMove(Direction.right);
 		System.out.print(rightBlock.toString());
-		assertEquals("Block[1 1 2 2]", rightBlock.toString());
+		assertEquals("Block[1 2 2 3]", rightBlock.toString());
 	}
 }
