@@ -111,8 +111,9 @@ public class Tray{
         //access the block in blocksCopy and mutate it by "moving". (may have to create new block in case pointers still connect to original blocks list.)
         //create Move and add it to moveHistory
         //use tray constructor with new block list and new history of moves
-    	ArrayList<Block> newBlocks = this.blocks;
+    	ArrayList<Block> newBlocks = new ArrayList<Block>();
     	ArrayList<Move> newMoveHistory = new ArrayList<Move>();
+    	newBlocks = (ArrayList<Block>) blocks.clone();
         if (moveHistory != null){
             newMoveHistory = (ArrayList<Move>) moveHistory.clone();
         }
@@ -124,7 +125,7 @@ public class Tray{
     			newBlocks.set(i, newBlock);
     		}
     	}
-        newMoveHistory.add(change);
+        newMoveHistory.add(new Move(b, dir));
 
     	/*if (!newMoveHistory.isEmpty()){
         for (int i = 0; i<newMoveHistory.size(); i++)
@@ -135,7 +136,6 @@ public class Tray{
         if (debug){
             System.out.println("MoveHistory length: " + newMoveHistory.size());//...and more debugging statements... WHY YOU NO WORK D:<
             System.out.println("MOVE: " + change.cleanToString());
-            System.out.println("CAN MOVE BE MADE?: " + this.canMoveDown(change.getBlock()));
             for (int i = 0; i<newMoveHistory.size(); i++)
                 System.out.println("move: " + newMoveHistory.get(i).cleanToString());
             for (int i = 0; i < newBlocks.size(); i++) //MOAR DEBUGGING
