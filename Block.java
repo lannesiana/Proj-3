@@ -1,18 +1,34 @@
 import java.util.List;
 
-public class Block{
+public class Block implements Comparable<Block>{
     private int upLeftRow;
     private int upLeftColumn;
     private int botRightRow;
     private int botRightColumn;
+    private int hash;
     
     public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn){
         this.upLeftRow = upLeftRow;
         this.upLeftColumn = upLeftColumn;
         this.botRightRow = botRightRow;
         this.botRightColumn = botRightColumn;
+        hash = getHash();
         
         // do we want to put blocks into a hash? need hash code?
+    }
+
+    private int getHash(){
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + upLeftRow;
+        result = prime * result + upLeftColumn;
+        result = prime * result + botRightRow;
+        result = prime * result + botRightRow;
+        return result;
+    }
+
+    public int hashCode(){
+        return hash;
     }
 
     public int getULR(){
@@ -93,6 +109,8 @@ public class Block{
 
     //overrides Object.equals();
     public boolean equals(Object obj){
+        if (this == obj)
+            return true;
         if (obj == null)
             return false;
         if (obj.getClass() != getClass())
