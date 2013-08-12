@@ -41,35 +41,40 @@ public class Solver {
 	//NOT ADDING TO QUEUEU CORRECTLY
 	public void solve() throws Exception{
 		boolean won = false; //debug
+
 		trayQueue.add(initialTray);
 		visitedTrays.add(initialTray.hashCode());
 		while (!trayQueue.isEmpty()){
 			Tray t1 = trayQueue.remove();
-				if (t1.goalReached(blocksGoal)){
-					won = true; //DELETE LATERRRZZ
-					t1.printMoveHistory();
-					break;
-				}
+			if (debug) {
+				System.out.println("OFF THE QUEUE: " + t1.boardToString());
+			}
+			if (t1.goalReached(blocksGoal)){
+				won = true; //DELETE LATERRRZZ
+				System.out.println("WIN"); //REMOVE LATER
+				t1.printMoveHistory();
+				break;
+			}
 				
-				ArrayList<Move> allMoves = t1.findAllMoves(); 
-				for (int k = 0; k < allMoves.size(); ){		
-					Move m1 = allMoves.get(k);
-					
-					Direction dire = m1.getDirection();
-					Block blok = m1.getBlock();
-					if(debug)
-						System.out.println("BEFORE: " + t1.boardToString());
-					Tray normanSux = t1.createTrayAfterMove(blok, dire);
-					if (debug)
-						System.out.println("NEW: " + normanSux.boardToString());
-					if (!visitedTrays.contains(normanSux.hashCode())){
-						trayQueue.add(t1.createTrayAfterMove(blok, dire));
-						visitedTrays.add(normanSux.hashCode());
-				}}
-			System.out.println(won);
-			System.exit(1); //trayQue is empty, no more moves to be made.
-		}
-									
+			ArrayList<Move> allMoves = t1.findAllMoves(); 
+			for (int k = 0; k < allMoves.size(); k++){		
+				Move m1 = allMoves.get(k);
+				
+				Direction dire = m1.getDirection();
+				Block blok = m1.getBlock();
+				if(debug)
+					System.out.println("OLD: " + t1.boardToString());
+				Tray normanSux = t1.createTrayAfterMove(blok, dire);
+				if (debug)
+					System.out.println("NEW: " + normanSux.boardToString());
+				if (!visitedTrays.contains(normanSux.hashCode())){
+					trayQueue.add(t1.createTrayAfterMove(blok, dire));
+					visitedTrays.add(normanSux.hashCode());
+				}
+			}
+			}	
+		System.out.println(won); //DELETE LATER
+		System.exit(1); //trayQue is empty, no more moves to be made.
 		}
 			
 			
