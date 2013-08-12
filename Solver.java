@@ -18,7 +18,7 @@ public class Solver {
 	private List<Block> blocksGoal;
 	private Queue<Tray> trayQueue = new LinkedList<Tray>();
 	private Set<Integer> visitedTrays = new HashSet<Integer>();
-	public boolean debug = true;
+	public boolean debug = false;
 
 
 	public Solver(){
@@ -40,8 +40,6 @@ public class Solver {
 	
 	//NOT ADDING TO QUEUEU CORRECTLY
 	public void solve() throws Exception{
-		boolean won = false; //debug
-
 		trayQueue.add(initialTray);
 		visitedTrays.add(initialTray.hashCode());
 		while (!trayQueue.isEmpty()){
@@ -50,8 +48,7 @@ public class Solver {
 				System.out.println("OFF THE QUEUE: " + t1.boardToString());
 			}
 			if (t1.goalReached(blocksGoal)){
-				won = true; //DELETE LATERRRZZ
-				System.out.println("WIN"); //REMOVE LATER
+				System.out.println("WIN");
 				t1.printMoveHistory();
 				break;
 			}
@@ -73,7 +70,7 @@ public class Solver {
 				}
 			}
 			}	
-		System.out.println(won); //DELETE LATER
+		 //DELETE LATER
 		System.exit(1); //trayQue is empty, no more moves to be made.
 		}
 			
