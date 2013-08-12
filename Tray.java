@@ -8,7 +8,7 @@ public class Tray{
 	final private int hash;
     final private int[][] board;
     private ArrayList<Move> moveHistory = new ArrayList<Move>();
-    private boolean debug = true;
+    private boolean debug = false;
 
 
     public Tray(int rows, int columns, ArrayList<Block> blocks,
@@ -90,10 +90,12 @@ public class Tray{
     }
 
     public void printMoveHistory(){
-        for (int i = 0; i < moveHistory.size(); i++){
-            System.out.println(moveHistory.get(i).toString());
-        }
-
+        if (!(moveHistory == null)){
+            for (int i = 0; i < moveHistory.size(); i++){
+                System.out.println(moveHistory.get(i).toString());
+            }
+        } else
+            System.out.println("no moves had to be made");
     }
         
         
