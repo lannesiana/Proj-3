@@ -101,8 +101,7 @@ public class Tray{
             for (int i = 0; i < moveHistory.size(); i++){
                 System.out.println(moveHistory.get(i).toString());
             }
-        } else
-            System.out.println("no moves had to be made");
+        } 
     }
         
         
