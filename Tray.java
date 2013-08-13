@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Arrays;
 
 public class Tray{
 	final private int rowsTotal;
@@ -16,6 +18,7 @@ public class Tray{
     	this.rowsTotal = rows;
     	this.colsTotal = columns;
     	this.blocks = blocks;
+        sortBlocks(); //allows tray states to be easily comparable
         this.moveHistory = routeHistory;
         board = new int[rows][columns];
         this.fillBoard();   
@@ -28,6 +31,10 @@ public class Tray{
             System.out.println("END TRAY");
             System.out.println("");
         }
+    }
+
+    private void sortBlocks(){
+        Collections.sort(blocks);
     }
 
     //for a simpler layout. In the tray, a block will be represented by its index in the arraylist.
@@ -57,7 +64,7 @@ public class Tray{
     	return this.blocks;
     }
     private int calculateDaHashCode(){
-    	int prime = 47;
+    	int prime = 31;
     	int result = 1;
     	for (int r = 0; r < rowsTotal; r++) {
 			for (int c = 0; c < colsTotal; c++) {
@@ -100,10 +107,19 @@ public class Tray{
         
         
     public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
         if (!(obj.getClass() == getClass()))
             return false;
         Tray other = (Tray)obj;
-        if (!(this.boardToString().equals(other.boardToString())))
+        if (this.boardToString().equals(other.boardToString()))
+            return true;
+        if (blocks == null) {
+            if (other.blocks != null)
+                return false;
+        } else if (!blocks.equals(other.blocks))
             return false;
         return true;
     }
@@ -128,15 +144,8 @@ public class Tray{
     		}
     	}
         newMoveHistory.add(new Move(b, dir));
-
-    	/*if (!newMoveHistory.isEmpty()){
-        for (int i = 0; i<newMoveHistory.size(); i++)
-            System.out.println("move: " + newMoveHistory.get(i).cleanToString());
-
-    	}*/
-//DEBUGGING
         if (debug){
-            System.out.println("MoveHistory length: " + newMoveHistory.size());//...and more debugging statements... WHY YOU NO WORK D:<
+            System.out.println("MoveHistory length: " + newMoveHistory.size());
             System.out.println("MOVE: " + change.cleanToString());
             for (int i = 0; i<newMoveHistory.size(); i++)
                 System.out.println("move: " + newMoveHistory.get(i).cleanToString());
@@ -216,24 +225,20 @@ public class Tray{
 
    
     public boolean isOK(){		
-	//overlapping Blocks
-  	
+	//no overlapping Blocks 	
     	for (int i = 0; i < this.blocks.size(); i++){
             Block block1 = blocks.get(i);
             for (int k = 0; k < this.blocks.size(); k++){
             	Block block2 = blocks.get(k);
             
-            	if (!(block1 == blocks.get(k))){
+            	if (!(block1 == blocks.get(k))){ //so block is not compared to itself
             		if (block2.getULR() <= block1.getULR() && block2.getULR() >= block1.getBRR()){
             			if(block2.getULC() <= block1.getULC() && block2.getULC() >= block1.getBRC())
-            				return false; 
-            		
+            				return false;        		
             	    }
 		        }     
 		    }
-    	}
-    
-    	
+    	}  	
 	//non-negative Blocks
     	for (int i = 0; i < this.blocks.size(); i++) {  
     		Block block1 = blocks.get(i);
@@ -241,21 +246,13 @@ public class Tray{
     			if (block1.getBlockCoords()[k] < 0)
    		 			return false; 
     	    }
-    	}
-    	
-        
+    	}	
     //blocks are in bounds
     	for (int i = 0; i < this.blocks.size(); i++) {
     		Block block1 = blocks.get(i); 
     		
-    		if (block1.getBRC() > (this.rowsTotal - 1) || block1.getULC() < 0)
-    			return false; 
-    			
-    		//brc > number rows false
-    		//urc < 0 false
-    	         	        
-
-
+    		if (block1.getBRC() > (this.colsTotal - 1) || block1.getULC() < 0 || block1.getULR()<0 || (block1.getBRR() > this.rowsTotal -1))
+    			return false;     			        
 		}
 		return true; 
 
