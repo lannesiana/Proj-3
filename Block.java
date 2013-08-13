@@ -13,8 +13,6 @@ public class Block implements Comparable<Block>{
         this.botRightRow = botRightRow;
         this.botRightColumn = botRightColumn;
         hash = getHash();
-        
-        // do we want to put blocks into a hash? need hash code?
     }
 
     private int getHash(){
@@ -57,27 +55,6 @@ public class Block implements Comparable<Block>{
 
     }
     
-    //merely changes instance variables. will need method in tray to actually move board on layout (such as creating a new board?)
-    public void move(Direction direction) throws Exception{ //gotta check if possible to move, a "canMove" method?
-        if (direction.equals(Direction.up)){ //must check if okay to move in this direction first. in tray
-                this.upLeftRow += 1;
-                this.botRightRow += 1;
-        }
-        else if (direction.equals(Direction.down)){
-                this.upLeftRow -= 1;
-                this.botRightRow -= 1;
-        }
-        else if (direction.equals(Direction.left)){
-                this.upLeftColumn -= 1;
-                this.botRightColumn -= 1;
-        }
-        else if (direction.equals(Direction.right)){
-                this.upLeftColumn += 1;
-                this.botRightColumn += 1;
-        }
-        else
-            throw new Exception("not a direction");
-    }
 
     public Block createBlockAfterMove(Direction direction) throws Exception{
         Block block;
@@ -142,7 +119,7 @@ public class Block implements Comparable<Block>{
     }
     
     public String toString(){
-        return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
+    	return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
     }
 
     public String blockDimensions(){
