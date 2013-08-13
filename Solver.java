@@ -49,7 +49,7 @@ public class Solver {
 			}
 			if (t1.goalReached(blocksGoal)){
 				t1.printMoveHistory();
-				break;
+				System.exit(0);
 			}
 				
 			ArrayList<Move> allMoves = t1.findAllMoves(); 
