@@ -48,7 +48,6 @@ public class Solver {
 				System.out.println("OFF THE QUEUE: " + t1.boardToString());
 			}
 			if (t1.goalReached(blocksGoal)){
-				System.out.println("WIN");
 				t1.printMoveHistory();
 				break;
 			}
