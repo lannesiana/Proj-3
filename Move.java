@@ -1,4 +1,6 @@
 
+//a representation of a movement of a block on the tray
+
 public class Move {
 	private String moveString = "";
 	private Block block;
@@ -9,7 +11,8 @@ public class Move {
 		this.dir = dir;
 		String destination = getNewCoords(dir);
 		String source = block.getULR() + " " + block.getULC() + " ";
-		moveString = source + destination;
+		//moveString is a string representation of a move, source upper left followed by destination upper left coordinates.
+		moveString = source + destination; 
 
 	}
 	
@@ -29,7 +32,14 @@ public class Move {
 	public Direction getDirection(){			
 		return dir;
 	}
-	public String cleanToString(){ //returns a string version not according to specs
+
+	public Block getBlock() {
+		return block;
+	}
+	
+
+	//primarily for debugging purposes. returns a string represntation of a move, not accoridng to project specifications
+	public String cleanToString(){ 
 		return block + " moves " + dir;
 	}
 
@@ -39,15 +49,7 @@ public class Move {
 		return moveString;
 	}
 	
-	public Block getBlock() {
-		return block;
-	}
-	public Move getMove() {
-		
-		//DO SOMETHING IN TRAY?
 
-	}
-	
 	//for testing purposes only
 	public boolean equals(Object obj){
 		if (obj.getClass() != getClass())
