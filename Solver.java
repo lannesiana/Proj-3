@@ -15,10 +15,10 @@ import java.util.Set;
 
 public class Solver {
 	private Tray initialTray;
-	private List<Block> blocksGoal;
-	private Queue<Tray> trayQueue = new LinkedList<Tray>();
-	private Set<Integer> visitedTrays = new HashSet<Integer>();
-	public boolean debug = false;
+	private List<Block> blocksGoal; //goal configuration
+	private Queue<Tray> trayQueue = new LinkedList<Tray>(); //a first in, first out queue to examine all possible moves
+	private Set<Integer> visitedTrays = new HashSet<Integer>(); //Stores every tray configuration seen, so repition does not occur.
+	public boolean debug = false; //for debugging input
 
 
 	public Solver(){
@@ -26,9 +26,11 @@ public class Solver {
 	}
 
 	public static void main(String[] args) throws IOException, Exception{
-		Solver sol = readCmd(args);
-		sol.solve();
+		Solver sol = readCmd(args); //parses user input/files
+		sol.solve(); //solves puzzle
 	}
+
+
 
 	//remove first item in queue, examine
 	//get all possible moves of tray
@@ -36,18 +38,16 @@ public class Solver {
 	//add all moves into queue, repeat loop
 	//if empty queue, solution has not been found
 	//check if current tray matches the goal config (new method)
-
-	
-	//NOT ADDING TO QUEUEU CORRECTLY
 	public void solve() throws Exception{
+		//add initial tray in queue and hashset
 		trayQueue.add(initialTray);
 		visitedTrays.add(initialTray.hashCode());
 		while (!trayQueue.isEmpty()){
 			Tray t1 = trayQueue.remove();
-			if (debug) {
+			if (debug) { //allows us to see which tray was popped off the queue to be examined
 				System.out.println("OFF THE QUEUE: " + t1.boardToString());
 			}
-			if (t1.goalReached(blocksGoal)){
+			if (t1.goalReached(blocksGoal)){ //found solution, print move history
 				t1.printMoveHistory();
 				System.exit(0);
 			}
@@ -58,19 +58,16 @@ public class Solver {
 				
 				Direction dire = m1.getDirection();
 				Block blok = m1.getBlock();
-				if(debug)
-					System.out.println("OLD: " + t1.boardToString());
-				Tray normanSux = t1.createTrayAfterMove(blok, dire);
+				Tray newTray = t1.createTrayAfterMove(blok, dire);
 				if (debug)
-					System.out.println("NEW: " + normanSux.boardToString());
-				if (!visitedTrays.contains(normanSux.hashCode())){
+					System.out.println("NEW: " + newTray.boardToString());
+				if (!visitedTrays.contains(newTray.hashCode())){
 					trayQueue.add(t1.createTrayAfterMove(blok, dire));
-					visitedTrays.add(normanSux.hashCode());
+					visitedTrays.add(newTray.hashCode());
 				}
 			}
 			}	
-		 //DELETE LATER
-		System.exit(1); //trayQue is empty, no more moves to be made.
+		System.exit(1); //trayQueue is empty, no more moves to be made.
 		}
 			
 			
@@ -81,7 +78,6 @@ public class Solver {
 	
 
 	private static Solver readCmd(String[] args) throws IOException{
-		//INTENSE MOMENTZZZ
 		Solver sol = new Solver();		
 		String option = null;
 		String initFile = null;
@@ -89,13 +85,14 @@ public class Solver {
 		if(args.length < 2){
 			throw new IOException("incorrect input"){};
 		}
-		if (args.length ==2){
+		//identifies debugging output, initial configuration, and goal configuration
+		if (args.length ==2 && !args[0].startsWith("[-o")){
 			initFile = args[0];
 			goalFile = args[1];
 		}
 		else if (args.length >= 3){
-			if (args[0].startsWith ("-o)")){
-				option = args[0].substring(2);
+			if (args[0].startsWith ("[-o")){
+				option = args[0].substring(3); //insert info options here. make sure options end with "]"
 				sol.debug = true;
 				initFile = args[1];
 				goalFile = args[2];
@@ -105,6 +102,7 @@ public class Solver {
 		}
 
 		String line;
+
 		//read initial configuration file;
 		BufferedReader fileConfig = null;
 		try{
@@ -113,6 +111,7 @@ public class Solver {
 			ArrayList<Block> blocksInit = new ArrayList<Block>();
 			int rows = 1;
 			int cols = -1;
+			//create blocks according to the initial configuration
 			while ((line = fileConfig.readLine()) != null){
 				if (lineCount > 0) {
 					String[] blockPos = line.split("\\s");
@@ -127,6 +126,7 @@ public class Solver {
 					Block b = new Block(upLeftRow, upLeftColumn, botRightRow, botRightColumn);
 					blocksInit.add(b);
 				} else{
+					//first line is 2 digits, for totalRows and totalColumns
 					String[] size = line.split("\\s");
 					if (size.length != 2){
 						throw new IllegalArgumentException("incorrect first line in file");
@@ -136,6 +136,8 @@ public class Solver {
 				}
 				lineCount++;
 			}
+
+			//the tray constructor sorts by row, then column. Instantiate intial tray to sort blocks for easier debug.
 			sol.initialTray = new Tray(rows, cols, blocksInit, null);
 			}catch (IOException e){
 				e.printStackTrace();
@@ -165,7 +167,7 @@ public class Solver {
 					int botRightColumn = Integer.parseInt(blockPos[3]);
 					blocksGoal.add(new Block(upLeftRow, upLeftColumn, botRightRow, botRightColumn));
 				}
-				sol.blocksGoal = blocksGoal; //uhh did i have this file already?
+				sol.blocksGoal = blocksGoal;
 			} catch(IOException e){
 				e.printStackTrace();
 				}
