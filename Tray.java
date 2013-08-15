@@ -4,13 +4,13 @@ import java.util.Collections;
 import java.util.Arrays;
 
 public class Tray{
-	final private int rowsTotal;
-	final private int colsTotal;
-	final private ArrayList<Block> blocks;
-	final private int hash;
-    final private int[][] board;
-    private ArrayList<Move> moveHistory = new ArrayList<Move>();
-    private boolean debug = false;
+	final private int rowsTotal; //total number of rows
+	final private int colsTotal; //total number of columns
+	final private ArrayList<Block> blocks; //list of blocks on the tray
+	final private int hash; //hashCode value
+    final private int[][] board; //2-d array to represent cells occupied by blocks
+    private ArrayList<Move> moveHistory = new ArrayList<Move>(); //tracks the history of moves already made
+    public boolean debug = false;
 
 
     public Tray(int rows, int columns, ArrayList<Block> blocks,
@@ -23,16 +23,10 @@ public class Tray{
         board = new int[rows][columns];
         this.fillBoard();   
     	hash = calculateDaHashCode(); 
-        if (debug){
-            System.out.println("NEW TRAY CREATED:");
-            System.out.println(this.boardToString());
-            for (int i = 0; i < blocks.size(); i++)
-                System.out.println("BLOCK: " + blocks.get(i).toString());
-            System.out.println("END TRAY");
-            System.out.println("");
-        }
     }
 
+
+    //implemented a compareTo() method for blocks, so blocks are sorted first by rows, then by columns
     private void sortBlocks(){
         Collections.sort(blocks);
     }
@@ -63,6 +57,8 @@ public class Tray{
     public ArrayList<Block> getBlocks(){
     	return this.blocks;
     }
+
+    //hash value determined by every cell in board, multiplied by a prime
     private int calculateDaHashCode(){
     	int prime = 31;
     	int result = 1;
@@ -74,10 +70,13 @@ public class Tray{
     	return result; 
     }
 
+    //overrides hash function, hashcode from calculateDaHashCode();
     public int hashCode(){
     	return hash; 
         
     }
+
+    //primarily for debugging purposes. Returns a visual representation of blocks on tray as demonstrated in fillBoard();
     public String boardToString(){
         String s = "";
         for (int r = 0; r < rowsTotal; r++){
@@ -91,6 +90,8 @@ public class Tray{
         return s;
     }
     
+    //checks if goal is reached by comparing block lists.
+    //overrode block.equals() method for this
     public boolean goalReached(List<Block> goals){
     	return blocks.containsAll(goals);
     	
@@ -104,7 +105,8 @@ public class Tray{
         } 
     }
         
-        
+    //equal if blocks laid out the same way on trays being compared.
+    //Considers case where 2 identical blocks are swapped to be equal.
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -155,6 +157,8 @@ public class Tray{
     	return blocksCopy;
     }
 
+
+    //returns a list of all possible moves of every block on the current tray.
     public ArrayList<Move> findAllMoves(){
         ArrayList<Move> moves = new ArrayList<Move>();
         for (int i = 0; i < blocks.size(); i++){
@@ -171,7 +175,7 @@ public class Tray{
         return moves;
     }
 
-
+    //returns True if a block can move up
     public boolean canMoveUp(Block block){
         if (block.getULR() > 0){
             for (int i = block.getULC(); i <= block.getBRC(); i++){
@@ -184,7 +188,7 @@ public class Tray{
     }
 
 
-
+    //returns true if a given block can move down
     public boolean canMoveDown(Block block){
         if (block.getBRR() < this.rowsTotal-1){
             for (int i = block.getULC(); i <= block.getBRC(); i++){
@@ -197,7 +201,7 @@ public class Tray{
     }
 
 
-
+    //returns true if a given block can move right
     public boolean canMoveRight(Block block){
         if (block.getBRC() < this.colsTotal-1){
             for (int i = block.getULR(); i <= block.getBRR(); i++){
@@ -210,7 +214,7 @@ public class Tray{
     }
 
 
-
+    //returns true if a given block can move left
     public boolean canMoveLeft(Block block){
         if (block.getULC() > 0){
             for (int i = block.getULR(); i <= block.getBRR(); i++){
@@ -223,6 +227,9 @@ public class Tray{
     }
 
    
+    //checks for overlapping blocks
+    //checks to see block values are non-negative
+    //makes sure blocks are properly in-bounds
     public boolean isOK(){		
 	//no overlapping Blocks 	
     	for (int i = 0; i < this.blocks.size(); i++){
