@@ -1,18 +1,19 @@
 import java.util.List;
 
+//represents a block on a tray
 public class Block implements Comparable<Block>{
-    private int upLeftRow;
-    private int upLeftColumn;
-    private int botRightRow;
-    private int botRightColumn;
-    private int hash;
+    private int upLeftRow; //upper-left row
+    private int upLeftColumn; //upper-left column
+    private int botRightRow; //bottom-right row
+    private int botRightColumn; //bottom-right Column
+    private int hash; //hashCode value
     
     public Block(int upLeftRow, int upLeftColumn, int botRightRow, int botRightColumn){
         this.upLeftRow = upLeftRow;
         this.upLeftColumn = upLeftColumn;
         this.botRightRow = botRightRow;
         this.botRightColumn = botRightColumn;
-        hash = getHash();
+        hash = getHash(); //calculates the hash code
     }
 
     private int getHash(){
@@ -25,26 +26,32 @@ public class Block implements Comparable<Block>{
         return result;
     }
 
+    //overrides obj.hashCode()
     public int hashCode(){
         return hash;
     }
 
+   //returns upperLeftRow
     public int getULR(){
         return this.upLeftRow;
     }
 
+    //returns upperLeftcolumn of the block
     public int getULC(){
         return this.upLeftColumn;
     }
 
+    //returns the BottomRightRow
     public int getBRR(){
         return this.botRightRow;
     }
 
+    //returns the BottomRightColumn
     public int getBRC(){
         return this.botRightColumn;
     }
 
+    //returns the block's coordinates (upperLeftRow, UpperLeftColumn, bottomRightRow, bottomRightcolumn) as an array.
     public int[] getBlockCoords(){
         int[] coords = new int[4];
         coords[0] = upLeftRow;
@@ -55,10 +62,10 @@ public class Block implements Comparable<Block>{
 
     }
     
-
+    //Creates a new block with updated coordinates after a "move". Original block is not changed.
     public Block createBlockAfterMove(Direction direction) throws Exception{
         Block block;
-        if (direction.equals(Direction.up)){ //must check if okay to move in this direction first. in tray
+        if (direction.equals(Direction.up)){ 
                 int ulr = upLeftRow - 1;
                 int brr = botRightRow - 1;
                 block = new Block(ulr, upLeftColumn, brr, botRightColumn);
@@ -84,7 +91,7 @@ public class Block implements Comparable<Block>{
         return block;
     }
 
-    //overrides Object.equals();
+    //overrides Object.equals(); Takes into consideration 2 blocks of the same size are equal.
     public boolean equals(Object obj){
         if (this == obj)
             return true;
@@ -97,6 +104,8 @@ public class Block implements Comparable<Block>{
             return false;
         return true;
     }
+
+    //To sort the blocks first by rows, then columns.
 
     public int compareTo(Block b){
         if (this == b)
@@ -114,18 +123,13 @@ public class Block implements Comparable<Block>{
 
     //sorts blocks by rows then columns
 
-    public String cleanToString(){
-        return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
-    }
     
     public String toString(){
     	return "Block[" + upLeftRow + " " + upLeftColumn + " " + botRightRow + " " + botRightColumn + "]";
     }
 
-    public String blockDimensions(){
-        return (botRightRow - upLeftRow + 1) + "x" + (botRightColumn - upLeftColumn + 1);
-    }
-
+    //the invariants regarding the particular location of the blocks is checked in Tray.
+    //Checks to make sure the coordinates of the bottom-right corner is larger than those of the upperLeft corner.
     public boolean isOK(){
         return ((this.botRightRow >= this.upLeftRow) && (this.botRightColumn >= this.upLeftColumn));
     }
