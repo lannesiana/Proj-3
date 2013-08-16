@@ -96,7 +96,7 @@ public class Solver {
 				if (option == "info]") //insert debug options here. make sure options end with "]"
 					sol.debug = true;
 				if (option == "DebugTray]")
-					//DO SUMFING HERE
+					System.out.println("uhhh not done yet lol");//DO SUMFING HERE
 				initFile = args[1];
 				goalFile = args[2];
 				}
