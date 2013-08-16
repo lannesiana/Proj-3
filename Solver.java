@@ -60,7 +60,7 @@ public class Solver {
 				Block blok = m1.getBlock();
 				Tray newTray = t1.createTrayAfterMove(blok, dire);
 				if (debug)
-					System.out.println("NEW: " + newTray.boardToString());
+					System.out.println("NEW TRAY CREATED:: " + newTray.boardToString());
 				if (!visitedTrays.contains(newTray.hashCode())){
 					trayQueue.add(t1.createTrayAfterMove(blok, dire));
 					visitedTrays.add(newTray.hashCode());
@@ -70,11 +70,6 @@ public class Solver {
 		System.exit(1); //trayQueue is empty, no more moves to be made.
 		}
 			
-			
-			
-		
-		
-
 	
 
 	private static Solver readCmd(String[] args) throws IOException{
@@ -83,6 +78,11 @@ public class Solver {
 		String initFile = null;
 		String goalFile = null;
 		if(args.length < 2){
+			if (args[0] == "[-ooptions]"){ //prints out all debugging options.
+				System.out.println("List of all possible debugging options:");
+				System.out.println("1.[-oinfo]: prints out all debugging info");
+				System.out.println("2.[-oDebugTray]: prints out all debugging info for methods specifically in Tray.java"); //How do we implement this?
+			} else
 			throw new IOException("incorrect input"){};
 		}
 		//identifies debugging output, initial configuration, and goal configuration
@@ -92,8 +92,11 @@ public class Solver {
 		}
 		else if (args.length >= 3){
 			if (args[0].startsWith ("[-o")){
-				option = args[0].substring(3); //insert info options here. make sure options end with "]"
-				sol.debug = true;
+				option = args[0].substring(3);
+				if (option == "info]") //insert debug options here. make sure options end with "]"
+					sol.debug = true;
+				if (option == "DebugTray]")
+					//DO SUMFING HERE
 				initFile = args[1];
 				goalFile = args[2];
 				}
