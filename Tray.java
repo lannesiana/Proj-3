@@ -78,16 +78,17 @@ public class Tray{
 
     //primarily for debugging purposes. Returns a visual representation of blocks on tray as demonstrated in fillBoard();
     public String boardToString(){
-        String s = "";
+        StringBuilder s = new StringBuilder();
         for (int r = 0; r < rowsTotal; r++){
             for (int c = 0; c < colsTotal; c++){
-                s += board[r][c];
+                s.append(board[r][c]);
+                s.append(" ");
                 if ((c + 1) % 4 == 0){
-                	s += "\\";
+                	s.append("\n");
                 }
             }
         }
-        return s;
+        return s.toString();
     }
     
     //checks if goal is reached by comparing block lists.
@@ -115,8 +116,6 @@ public class Tray{
         if (!(obj.getClass() == getClass()))
             return false;
         Tray other = (Tray)obj;
-        if (this.boardToString().equals(other.boardToString()))
-            return true;
         if (blocks == null) {
             if (other.blocks != null)
                 return false;
